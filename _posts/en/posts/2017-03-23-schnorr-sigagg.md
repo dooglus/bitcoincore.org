@@ -52,14 +52,14 @@ Until more evaluation of the delinearization scheme securing signers from malici
 
 The properties of Schnorr allowing for the combination of multiple signatures over a single input are also applicable to the aggregation of multiple inputs for all transactions. Bitcoin developer Gregory Maxwell was the first to introduce the idea using insights from a previous proposal based on BLS signatures. 
 
-To properly understand the difference between this application and the ones described above it is necessary to consider how signatures are aggregated in each respective cases. In the native multisig setup, signers collaborate between themselves to compute a common public key and its associated signature. This interaction happens outside the protocol and only concerns the parties involved. The idea behind signature aggregation is to enable system validators ie. Bitcoin nodes to compute a single key and signature for every inputs of all transactions at the protocol level. 
+To properly understand the difference between this application and the ones described above it is necessary to consider how signatures are aggregated in each respective cases. In the native multisig setup, signers collaborate between themselves to compute a common public key and its associated signature. This interaction happens outside the protocol and only concerns the parties involved. The idea behind signature aggregation is to enable system validators ie. Bitcoin nodes to compute a single key and signature for all inputs of all transactions at the protocol level. 
 
 Because this scheme expands the scope of aggregation outside of the deterministic set of participants, it introduces a new vector of attack for malicious actors to leverage the “cancellation” bug. For this reason, the delinearization fix highlighted in the previous section is critical to the soundness of this method.  
 
 In terms of implementation, the proposal is rather straightforward: OP_CHECKSIG and
 OP_CHECKMULTISIG are modified so that they can stack public keys, delinearize them and once all associated inputs are validated, produce a combined signature for their respective transactions. 
 
-It is rather straightforward to evaluate the type of resources savings that would have been possible had signature aggregation been implemented since the genesis block. Assuming every historical signature would be reduced to 1 byte, except for one per transaction, analysis suggest the method would result in at least a 25% reduction in terms of storage and bandwidth. Increased used of n-of-n thresholds are likely to translate into more savings though they were not accounted for in this analysis. 
+It is rather straightforward to evaluate the type of resources savings that would have been possible had signature aggregation been implemented since the genesis block. Assuming every historical signature would be reduced to 1 byte, except for one per transaction, analysis suggests the method would result in at least a 25% reduction in terms of storage and bandwidth. Increased used of n-of-n thresholds are likely to translate into more savings though they were not accounted for in this analysis. 
 
 <p align="center">
   <img src="/assets/images/posts/signature-agg-chart.png" alt="Schnorr signature addregation savings chart">
